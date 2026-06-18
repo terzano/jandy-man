@@ -26,7 +26,6 @@ async def async_setup_entry(
 class JandyModeSelect(JandyEntity, SelectEntity):
     """Select entity that controls pool vs spa mode."""
 
-    _attr_name = "Mode"
     _attr_translation_key = "mode"
     _attr_options = MODES
 

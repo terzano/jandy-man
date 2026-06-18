@@ -8,6 +8,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import JandyConfigEntry
 from .const import MODES, STATE_TRANSITIONING
+from .coordinator import JandyCoordinator
 from .entity import JandyEntity
 
 
@@ -23,13 +24,12 @@ async def async_setup_entry(
 class JandyStatusSensor(JandyEntity, SensorEntity):
     """Reports the live valve status: pool, spa, or transitioning."""
 
-    _attr_name = "Status"
     _attr_translation_key = "status"
     _attr_device_class = SensorDeviceClass.ENUM
     _attr_options = [*MODES, STATE_TRANSITIONING]
 
     def __init__(
-        self, coordinator, entry: JandyConfigEntry
+        self, coordinator: JandyCoordinator, entry: JandyConfigEntry
     ) -> None:
         """Initialize the sensor entity."""
         super().__init__(coordinator, entry)
