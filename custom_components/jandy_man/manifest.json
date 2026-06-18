@@ -1,9 +1,10 @@
 {
   "domain": "jandy_man",
-  "name": "Jandy Pool/Spa",
-  "codeowners": ["@diego"],
+  "name": "Jandy Pool/Spa Mode",
+  "codeowners": ["@terzano"],
   "config_flow": true,
-  "documentation": "https://github.com/diego/jandy-man",
+  "documentation": "https://github.com/terzano/jandy-man",
+  "issue_tracker": "https://github.com/terzano/jandy-man/issues",
   "integration_type": "device",
   "iot_class": "local_polling",
   "requirements": [],
