@@ -23,42 +23,48 @@ def _make_session() -> aiohttp.ClientSession:
 
 async def test_get_status_parses_response() -> None:
     """It parses mode and moving from /status."""
-    with aioresponses() as mock:
-        mock.get(
-            "http://1.2.3.4:8080/status",
-            payload={"mode": "spa", "moving": True},
-        )
-        session = _make_session()
-        client = JandyApiClient("1.2.3.4", 8080, session)
-        status = await client.async_get_status()
-        await session.close()
+    session = _make_session()
+    try:
+        with aioresponses() as mock:
+            mock.get(
+                "http://1.2.3.4:8080/status",
+                payload={"mode": "spa", "moving": True},
+            )
+            client = JandyApiClient("1.2.3.4", 8080, session)
+            status = await client.async_get_status()
 
-    assert status == JandyStatus(mode="spa", moving=True)
+        assert status == JandyStatus(mode="spa", moving=True)
+    finally:
+        await session.close()
 
 
 async def test_set_mode_posts_payload() -> None:
     """It POSTs the requested mode to /mode."""
-    with aioresponses() as mock:
-        mock.post("http://1.2.3.4:8080/mode", status=202)
-        session = _make_session()
-        client = JandyApiClient("1.2.3.4", 8080, session)
-        await client.async_set_mode("spa")
-        await session.close()
+    session = _make_session()
+    try:
+        with aioresponses() as mock:
+            mock.post("http://1.2.3.4:8080/mode", status=202)
+            client = JandyApiClient("1.2.3.4", 8080, session)
+            await client.async_set_mode("spa")
 
-        mock.assert_called_once_with(
-            "http://1.2.3.4:8080/mode",
-            method="POST",
-            json={"mode": "spa"},
-            timeout=REQUEST_TIMEOUT,
-        )
+            mock.assert_called_once_with(
+                "http://1.2.3.4:8080/mode",
+                method="POST",
+                json={"mode": "spa"},
+                timeout=REQUEST_TIMEOUT,
+            )
+    finally:
+        await session.close()
 
 
 async def test_get_status_raises_connection_error() -> None:
     """Transport failures surface as JandyConnectionError."""
-    with aioresponses() as mock:
-        mock.get("http://1.2.3.4:8080/status", exception=aiohttp.ClientError())
-        session = _make_session()
-        client = JandyApiClient("1.2.3.4", 8080, session)
-        with pytest.raises(JandyConnectionError):
-            await client.async_get_status()
+    session = _make_session()
+    try:
+        with aioresponses() as mock:
+            mock.get("http://1.2.3.4:8080/status", exception=aiohttp.ClientError())
+            client = JandyApiClient("1.2.3.4", 8080, session)
+            with pytest.raises(JandyConnectionError):
+                await client.async_get_status()
+    finally:
         await session.close()
