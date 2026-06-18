@@ -5,14 +5,13 @@ from __future__ import annotations
 from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
-from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from . import JandyConfigEntry
 from .api import JandyApiError
-from .const import DOMAIN, MODES
+from .const import MODES
 from .coordinator import JandyCoordinator
+from .entity import JandyEntity
 
 
 async def async_setup_entry(
@@ -24,10 +23,9 @@ async def async_setup_entry(
     async_add_entities([JandyModeSelect(entry.runtime_data, entry)])
 
 
-class JandyModeSelect(CoordinatorEntity[JandyCoordinator], SelectEntity):
+class JandyModeSelect(JandyEntity, SelectEntity):
     """Select entity that controls pool vs spa mode."""
 
-    _attr_has_entity_name = True
     _attr_name = "Mode"
     _attr_translation_key = "mode"
     _attr_options = MODES
@@ -36,12 +34,8 @@ class JandyModeSelect(CoordinatorEntity[JandyCoordinator], SelectEntity):
         self, coordinator: JandyCoordinator, entry: JandyConfigEntry
     ) -> None:
         """Initialize the select entity."""
-        super().__init__(coordinator)
+        super().__init__(coordinator, entry)
         self._attr_unique_id = f"{entry.entry_id}_mode"
-        self._attr_device_info = DeviceInfo(
-            identifiers={(DOMAIN, entry.entry_id)},
-            name=entry.title,
-        )
 
     @property
     def current_option(self) -> str | None:
