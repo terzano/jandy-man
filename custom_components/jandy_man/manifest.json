@@ -1,0 +1,11 @@
+{
+  "domain": "jandy_man",
+  "name": "Jandy Pool/Spa",
+  "codeowners": ["@diego"],
+  "config_flow": true,
+  "documentation": "https://github.com/diego/jandy-man",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "requirements": [],
+  "version": "0.1.0"
+}

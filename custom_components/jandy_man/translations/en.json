@@ -1,0 +1,33 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Jandy controller",
+        "data": {
+          "host": "Host",
+          "port": "Port"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the Jandy controller."
+    }
+  },
+  "entity": {
+    "select": {
+      "mode": {
+        "name": "Mode"
+      }
+    },
+    "sensor": {
+      "status": {
+        "name": "Status",
+        "state": {
+          "pool": "Pool",
+          "spa": "Spa",
+          "transitioning": "Transitioning"
+        }
+      }
+    }
+  }
+}
