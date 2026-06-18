@@ -31,6 +31,7 @@ async def test_user_flow_success(hass: HomeAssistant) -> None:
         )
 
     assert result["type"] is FlowResultType.CREATE_ENTRY
+    assert result["title"] == "Jandy Pool/Spa"
     assert result["data"] == USER_INPUT
 
 
@@ -39,6 +40,7 @@ async def test_user_flow_cannot_connect(hass: HomeAssistant) -> None:
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": SOURCE_USER}
     )
+    assert result["type"] is FlowResultType.FORM
 
     with patch(
         "custom_components.jandy_man.config_flow.JandyApiClient.async_get_status",

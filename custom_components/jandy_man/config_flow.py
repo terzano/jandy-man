@@ -23,6 +23,8 @@ STEP_USER_SCHEMA = vol.Schema(
 class JandyConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Jandy Pool/Spa."""
 
+    VERSION = 1
+
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
