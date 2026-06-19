@@ -5,7 +5,7 @@ on:
     branches: [main, develop]
   pull_request:
   schedule:
-    # Re-validate daily so changes in HA/HACS requirements surface even without commits.
+    # Re-validate daily so changes in Home Assistant manifest requirements surface even without commits.
     - cron: "0 0 * * *"
 
 jobs:
@@ -15,14 +15,3 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: home-assistant/actions/hassfest@master
-
-  hacs:
-    name: HACS
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: hacs/action@main
-        with:
-          category: integration
-          # This is a custom integration, not in the home-assistant/brands repo.
-          ignore: brands
