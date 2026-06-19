@@ -1,6 +1,7 @@
 # Jandy Pool/Spa — Home Assistant Integration
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square)](https://github.com/hacs/integration)
+[![Validate](https://img.shields.io/github/actions/workflow/status/terzano/jandy-man/validate.yml?branch=main&label=validate&style=flat-square)](https://github.com/terzano/jandy-man/actions/workflows/validate.yml)
 [![Release](https://img.shields.io/github/v/release/terzano/jandy-man?style=flat-square)](https://github.com/terzano/jandy-man/releases)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.12%2B-blue.svg?style=flat-square)](https://www.home-assistant.io/)
 
