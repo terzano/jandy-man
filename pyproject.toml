@@ -1,6 +1,6 @@
 [project]
 name = "jandy-man"
-version = "0.1.0"
+version = "0.2.0"
 description = "Home Assistant custom integration to switch a pool between pool and spa mode via a Raspberry Pi HTTP API."
 readme = "README.md"
 requires-python = ">=3.12"
