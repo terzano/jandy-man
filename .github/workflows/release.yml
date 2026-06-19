@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish release asset
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set manifest version to the release tag
+        # Keeps the installed manifest version in sync with the released tag, so
+        # HACS and Home Assistant show and compare the same version.
+        run: |
+          version="${{ github.event.release.tag_name }}"
+          version="${version#v}"
+          jq --arg v "$version" '.version = $v' \
+            custom_components/jandy_man/manifest.json > manifest.tmp
+          mv manifest.tmp custom_components/jandy_man/manifest.json
+          echo "manifest version set to ${version}"
+
+      - name: Create integration zip
+        run: |
+          cd custom_components/jandy_man
+          zip -r jandy_man.zip .
+
+      - name: Upload zip to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: custom_components/jandy_man/jandy_man.zip

@@ -1,0 +1,19 @@
+{
+  "entity": {
+    "select": {
+      "mode": {
+        "default": "mdi:pool"
+      }
+    },
+    "sensor": {
+      "status": {
+        "default": "mdi:pool",
+        "state": {
+          "pool": "mdi:pool",
+          "spa": "mdi:hot-tub",
+          "transitioning": "mdi:valve"
+        }
+      }
+    }
+  }
+}
