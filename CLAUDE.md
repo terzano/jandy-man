@@ -94,7 +94,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ## Conventions
 
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `chore:`, `refactor:`,
-  `test:`, `docs:`, scoped where useful). Keep the `Co-Authored-By` trailer.
+  `test:`, `docs:`, scoped where useful). Never use `Co-Authored-By` trailer.
 - **Branching:** Git Flow — `main` = production, `develop` = integration,
   `feature/*` off `develop` merged back with `--no-ff`, `release/*`/`hotfix/*`
   as needed. Tag releases on `main` (e.g. `v0.1.0`).
