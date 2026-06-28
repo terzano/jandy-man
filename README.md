@@ -48,6 +48,35 @@ Or add it manually:
 The integration polls the controller's status, polling faster while the valves
 are physically moving and slowing down once they settle.
 
+## Dashboard
+
+Point any standard Lovelace card at the **Select** entity — it's the control. To
+add it: **Edit dashboard → + Add card → Manual**, then paste:
+
+```yaml
+type: tile
+entity: select.jandy_pool_spa_mode
+name: Pool / Spa
+features:
+  - type: select-options
+```
+
+This shows the current mode with one-tap **Pool** / **Spa** buttons. Add the
+status sensor alongside it to see when the valves are mid-move:
+
+```yaml
+type: tile
+entity: sensor.jandy_pool_spa_status
+name: Status
+```
+
+Selecting a mode sends the command; the **Status** sensor reads `transitioning`
+until the valves settle, then `pool` / `spa`.
+
+> Entity IDs are derived from the config-entry name. Confirm yours under
+> **Settings → Devices & Services → Jandy Pool/Spa** (or **Developer Tools →
+> States**) and adjust the snippet if they differ.
+
 ## Controller API contract
 
 | Method | Path | Body | Response |
